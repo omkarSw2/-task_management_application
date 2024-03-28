@@ -41,18 +41,19 @@ const LoginPage = () => {
       dispatch(LoginUser(values)).then((res) => {
         console.log("from login", res);
         if (res.status === 200) {
+          localStorage.setItem("token", res.data.accessToken);
+          navigate("/tasks", { replace: true });
           toast({
-            title: `Welcome ${res.data.user.username} .`,
-            description: "We've welcomes you  back.",
+            title: `Welcome ${res.data.user.username}.`,
+            description: "We've welcomed you back.",
             status: "success",
             duration: 5000,
             isClosable: true,
           });
-          navigate("/tasks", { replace: true });
         } else {
           toast({
-            title: "something went wrong",
-            description: "please try again.",
+            title: "Something went wrong",
+            description: "Please try again.",
             status: "error",
             duration: 5000,
             isClosable: true,
