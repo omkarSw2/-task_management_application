@@ -1,19 +1,41 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { NavLink, useLocation, Link } from "react-router-dom";
+import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 import Breadcrumb from "./Breadcrumb";
 
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React from "react";
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Tasks", href: "/tasks", current: false },
-  { name: "Login", href: "/login", current: false },
-  { name: "SignUp", href: "/signup", current: false },
 ];
 
 export default function Headers() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const authToken = localStorage.getItem("token");
+  const isAuthenticated = authToken && authToken.length > 0;
 
   const pathnames = location.pathname.split("/").filter((x) => x);
+  const handleLogout = async () => {
+    await localStorage.clear();
+
+    // navigate
+    navigate("/", { replace: true });
+    window.location.reload();
+  };
   return (
     <>
       <div className="min-h-full">
@@ -44,6 +66,36 @@ export default function Headers() {
                             {item.name}
                           </NavLink>
                         ))}
+                        {!isAuthenticated && (
+                          <NavLink
+                            to={"/login"}
+                            className={({ isActive }) =>
+                              isActive
+                                ? "bg-gray-900 text-white hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                : "text-white hover:bg-gray-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            }>
+                            {"Login"}
+                          </NavLink>
+                        )}
+                        {!isAuthenticated && (
+                          <NavLink
+                            to={"/signup"}
+                            className={({ isActive }) =>
+                              isActive
+                                ? "bg-gray-900 text-white hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                : "text-white hover:bg-gray-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            }>
+                            {"Signup"}
+                          </NavLink>
+                        )}
+                        {isAuthenticated && (
+                          <button
+                            onClick={onOpen}
+                            to={"/logout"}
+                            className="text-white hover:bg-gray-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                            {"Logout"}
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -131,6 +183,31 @@ export default function Headers() {
           </div>
         </main> */}
       </div>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Customer
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure? You can&apos;t undo this action afterwards.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" onClick={handleLogout} ml={3}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
 }

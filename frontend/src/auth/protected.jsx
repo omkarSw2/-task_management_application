@@ -7,4 +7,3 @@ const PrivateRoute = ({ children }) => {
 };
 
 export default PrivateRoute;
-// omakr updated teh protected route

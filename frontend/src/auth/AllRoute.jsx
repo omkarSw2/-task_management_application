@@ -49,6 +49,7 @@ const AllRoutes = () => {
               <LoginPage />
             </Suspense>
           }></Route>
+
         <Route
           path="/signup"
           element={
@@ -72,8 +73,7 @@ const AllRoutes = () => {
                 </div>
               }>
               <PrivateRoute>
-
-              <Tasks />
+                <Tasks />
               </PrivateRoute>
             </Suspense>
           }

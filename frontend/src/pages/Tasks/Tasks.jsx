@@ -35,41 +35,47 @@ const Tasks = () => {
           Add Product
         </Button>
 
-        <TableContainer>
-          <Table variant="simple">
-            <TableCaption>Todo List </TableCaption>
-            <Thead>
-              <Tr>
-                <Th>Todos</Th>
-                <Th>description</Th>
-                <Th>Due Date</Th>
-                <Th>Priority</Th>
-                <Th>status</Th>
-                <Th>Edit</Th>
-                <Th>Delete</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {todos?.map((renderRow) => (
-                <DashboardTd
-                  key={renderRow._id + renderRow.title}
-                  {...renderRow}
-                />
-              ))}
-            </Tbody>
-            <Tfoot>
-              <Tr>
-                <Th>Todos</Th>
-                <Th>description</Th>
-                <Th>Due Date</Th>
-                <Th>Priority</Th>
-                <Th>status</Th>
-                <Th>Edit</Th>
-                <Th>Delete</Th>
-              </Tr>
-            </Tfoot>
-          </Table>
-        </TableContainer>
+        {todos.length ? (
+          <TableContainer>
+            <Table variant="simple">
+              <TableCaption>Todo List </TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>Todos</Th>
+                  <Th>description</Th>
+                  <Th>Due Date</Th>
+                  <Th>Priority</Th>
+                  <Th>status</Th>
+                  <Th>Edit</Th>
+                  <Th>Delete</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {todos?.map((renderRow) => (
+                  <DashboardTd
+                    key={renderRow._id + renderRow.title}
+                    {...renderRow}
+                  />
+                ))}
+              </Tbody>
+              <Tfoot>
+                <Tr>
+                  <Th>Todos</Th>
+                  <Th>description</Th>
+                  <Th>Due Date</Th>
+                  <Th>Priority</Th>
+                  <Th>status</Th>
+                  <Th>Edit</Th>
+                  <Th>Delete</Th>
+                </Tr>
+              </Tfoot>
+            </Table>
+          </TableContainer>
+        ) : (
+          <h1 className="text-center text-2xl font-semibold mt-7">
+            not Task is available
+          </h1>
+        )}
       </div>
       <AddProductModal
         addIsOpen={addIsOpen}
