@@ -4,7 +4,7 @@
   "description": "backend for the task manegement application ",
   "main": "index.js",
   "scripts": {
-    "test": "supervisor src/index.js"
+    "server": "supervisor index.js"
   },
   "author": "omkar",
   "license": "ISC",
