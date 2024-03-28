@@ -17,7 +17,10 @@ import axios from "axios";
 export const LoginUser = (obj) => async (dispatch) => {
   try {
     dispatch({ type: USERLOGINLOADING });
-    let res = await axios.post(`http://localhost:8080/v1/users/login`, obj);
+    let res = await axios.post(
+      `https://turquoise-abalone-coat.cyclic.app/v1/users/login`,
+      obj
+    );
     console.log(res.data);
     dispatch({ type: USERLOGINSUCCESS, payload: res.data.accessToken });
     localStorage.setItem("token", res.data.accessToken);
@@ -32,7 +35,10 @@ export const LoginUser = (obj) => async (dispatch) => {
 export const SignupUser = (obj) => async (dispatch) => {
   try {
     dispatch({ type: USERSIGNUPLOADING });
-    let res = await axios.post(`http://localhost:8080/v1/users/register`, obj);
+    let res = await axios.post(
+      `https://turquoise-abalone-coat.cyclic.app/v1/users/register`,
+      obj
+    );
     console.log(res.data);
     // dispatch({ type: USERSIGNUPSUCCESS, payload: res.data });
     dispatch({ type: USERSIGNUPSUCCESS });

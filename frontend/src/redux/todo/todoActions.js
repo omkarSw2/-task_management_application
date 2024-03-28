@@ -16,7 +16,7 @@ export const GETTODOS = () => async (dispatch) => {
   try {
     dispatch({ type: TODOLOADING });
     let res = await axios.get(
-      `http://localhost:8080/v1/task/`,
+      `https://turquoise-abalone-coat.cyclic.app/v1/task/`,
 
       {
         headers,
@@ -36,7 +36,7 @@ export const PostTodos = (obj) => async (dispatch) => {
   try {
     dispatch({ type: POSTTODOLOADING });
     let res = await axios.post(
-      `http://localhost:8080/v1/task/addtask`,
+      `https://turquoise-abalone-coat.cyclic.app/v1/task/addtask`,
       obj,
 
       {
@@ -57,7 +57,7 @@ export const PatchTodos = (_id, obj) => async (dispatch) => {
   try {
     dispatch({ type: POSTTODOLOADING });
     let res = await axios.patch(
-      `http://localhost:8080/v1/task/updatetask/${_id}`,
+      `https://turquoise-abalone-coat.cyclic.app/v1/task/updatetask/${_id}`,
       obj,
 
       {
@@ -78,7 +78,7 @@ export const DeleteTodos = (_id) => async (dispatch) => {
   try {
     dispatch({ type: POSTTODOLOADING });
     let res = await axios.delete(
-      `http://localhost:8080/v1/task/deletetask/${_id}`,
+      `https://turquoise-abalone-coat.cyclic.app/v1/task/deletetask/${_id}`,
 
       {
         headers,
